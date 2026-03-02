@@ -40,13 +40,12 @@ export function TicTacToe() {
     return '';
   }
 
-  const draw = p1Turns.length == 5 || p2Turns.length == 5;
-
   const lastPlayer = p1Turns.length > p2Turns.length ? 1 : 2;
   const lastPlayerTurns = p1Turns.length > p2Turns.length ? p1Turns : p2Turns;
   const winner = winnerCombos.some((row) =>
     row.every((r) => lastPlayerTurns.includes(r)),
   );
+  const draw = p1Turns.length == 5 || p2Turns.length == 5;
 
   function resetGame() {
     setP1Turns([]);
@@ -57,7 +56,11 @@ export function TicTacToe() {
     <>
       <h2>TicTacToe</h2>
       <div
-        style={winner ? { pointerEvents: 'none' } : { pointerEvents: 'unset' }}
+        style={
+          winner || draw
+            ? { pointerEvents: 'none' }
+            : { pointerEvents: 'unset' }
+        }
       >
         {board.map((row, index) => (
           <div
