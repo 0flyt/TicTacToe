@@ -40,6 +40,8 @@ export function TicTacToe() {
     return '';
   }
 
+  const draw = p1Turns.length == 5 || p2Turns.length == 5;
+
   const lastPlayer = p1Turns.length > p2Turns.length ? 1 : 2;
   const lastPlayerTurns = p1Turns.length > p2Turns.length ? p1Turns : p2Turns;
   const winner = winnerCombos.some((row) =>
@@ -86,9 +88,13 @@ export function TicTacToe() {
       <p>
         {winner
           ? `Player ${lastPlayer} won`
-          : `Player ${whosTurn ? '1' : '2'}'s turn`}
+          : draw
+            ? 'Draw'
+            : `Player ${whosTurn ? '1' : '2'}'s turn`}
       </p>
-      {winner && <button onClick={() => resetGame()}>Spela igen</button>}
+      {(winner || draw) && (
+        <button onClick={() => resetGame()}>Spela igen</button>
+      )}
     </>
   );
 }
